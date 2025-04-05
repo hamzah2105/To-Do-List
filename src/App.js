@@ -6,18 +6,14 @@ function App() {
   const [text, setText] = useState('');
 
   const fetchTodos = async () => {
-    const res = await fetch('http://localhost:5000/todos');
+    const res = await fetch('https://romantic-precious-jupiter.glitch.me/api/todos');
     const data = await res.json();
     setTodos(data);
   };
-
-  useEffect(() => {
-    fetchTodos();
-  }, []);
-
+  
   const addTodo = async () => {
     if (!text) return;
-    const res = await fetch('http://localhost:5000/todos', {
+    const res = await fetch('https://romantic-precious-jupiter.glitch.me/api/todos', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text }),
@@ -26,21 +22,23 @@ function App() {
     setTodos([...todos, newTodo]);
     setText('');
   };
-
+  
   const toggleComplete = async (id, completed) => {
-    await fetch(`http://localhost:5000/todos/${id}`, {
+    await fetch(`https://romantic-precious-jupiter.glitch.me/api/todos/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ completed }),
     });
     fetchTodos();
   };
-
+  
   const deleteTodo = async (id) => {
-    await fetch(`http://localhost:5000/todos/${id}`, { method: 'DELETE' });
+    await fetch(`https://romantic-precious-jupiter.glitch.me/api/todos/${id}`, {
+      method: 'DELETE',
+    });
     fetchTodos();
   };
-
+  
   return (
     <div className="container mt-5">
       <h1 className="text-center">To-Do List</h1>
